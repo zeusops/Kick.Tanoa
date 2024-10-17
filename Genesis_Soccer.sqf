@@ -14,17 +14,17 @@ MY_KEYDOWN_FNCDCGETIN = {
 					if (player getVariable "Soccer_Hit") then
 					{
 						player setvariable ["Soccer_Hit",false,true];
+						hint "Low kick.";
 					}
 					else
 					{
 						player setvariable ["Soccer_Hit",true,true];
+						hint "High kick.";
 					};
         };
 
     };
 };
-VCOMKEYBINDINGDCGET = (findDisplay 46) displayAddEventHandler ["KeyDown","_this select 1 spawn MY_KEYDOWN_FNCDCGETIN;false;"];
-
 
 // ["m_midfieldMarker"] call dingus_fnc_initializeBall;
 dingus_fnc_initializeBall = {
@@ -84,3 +84,8 @@ dingus_fnc_initializeBall = {
 		};
 	};
 };
+
+if (isDedicated) exitWith {};
+waitUntil {!isNull findDisplay 46};
+waitUntil {alive player};
+VCOMKEYBINDINGDCGET = (findDisplay 46) displayAddEventHandler ["KeyDown","_this select 1 spawn MY_KEYDOWN_FNCDCGETIN;false;"];
